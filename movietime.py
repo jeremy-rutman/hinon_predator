@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
+
 #sudo apt-get update
 #sudo apt-get install python-dev python-pip
 #sudo pip install --upgrade distribute
@@ -38,6 +40,16 @@ def setup():
     GPIO.add_event_callback(pin_screensaver, screensaver_callback)
     GPIO.add_event_callback(pin_go_to_zero_positions, zero_callback)
 
+    #GPIO.add_event_detect(channel, GPIO.RISING, callback=my_callback, bouncetime=200)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+#GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+   
+#def buttonPressed(value):
+#    print('Scored! %s'%value)
+   
+#GPIO.add_event_detect(17, GPIO.FALLING, callback=lambda x: buttonPressed(50), bouncetime=2000)
+#GPIO.add_event_detect(27, GPIO.FALLING, callback=lambda x: buttonPressed(150), bouncetime=2000)
 
 def movie_callback():
     print 'MOVIE PUSHED!'
