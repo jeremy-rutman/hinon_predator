@@ -69,10 +69,14 @@ def zero_callback():
     print 'ZERO PUSHED!'
 
 def playmovie(infile = '/media/usb/movie.mp4'):
-  	a = subprocess.call( [ "omxplayer", "-o", "hdmi", infile])
+#omxplayer -o both --no-osd --audio_fifo 0.01 --video_fifo 0.01 9de7027baa3f.mp4 
+
+#    infile = "9de7027baa3f.mp4"
+    a = subprocess.call( [ "omxplayer", "-o", "both","--no-osd","--audio_fifo","0.01","--video_fifo","0.01", infile])
 
 
 if __name__ == "__main__":
     print('starting raspi stuff')
+    playmovie(infile = "9de7027baa3f.mp4")
     setup()
 
