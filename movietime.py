@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 #!/usr/bin/python
 
 # http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
@@ -12,6 +15,8 @@ import sys
 import subprocess
 import os
 import glob
+import serial
+from pyomxplayer import OMXPlayer
 
 #gpio read
 # 3.3VOLTS !!!!! to the gpio pins...
@@ -68,15 +73,56 @@ def screensaver_callback():
 def zero_callback():
     print 'ZERO PUSHED!'
 
-def playmovie(infile = '/media/usb/movie.mp4'):
+
+class movietime:\
+
+
+
+    def playmovie(self,infile = '/media/usb/movie.mp4'):
 #omxplayer -o both --no-osd --audio_fifo 0.01 --video_fifo 0.01 9de7027baa3f.mp4 
 
 #    infile = "9de7027baa3f.mp4"
-    a = subprocess.call( [ "omxplayer", "-o", "both","--no-osd","--audio_fifo","0.01","--video_fifo","0.01", infile])
+        self.loop= OMXPlayer(infile,'-o local', start_playback=True, do_dict=False)
+# - See more at: http://www.sundh.com/blog/2013/10/loop-videos-seamlessly-omxplayer/#sthash.3ku3xeZQ.dpuf
+ #       return self
+    #a = subprocess.call( [ "omxplayer", "-o", "both","--no-osd","--audio_fifo","0.01","--video_fifo","0.01", infile])
 
+    def pausemovie(movie):
+        self.loop1.toggle_pause()
+
+
+def serialread(self):
+    strn = "string sending"
+#    serialport.write(strn)
+#    print("sending: "+str(strn))
+    response = serialport.readlines(None)
+    print("got: "+str(response))
+   # print(response.type())
+    if len(response)>0:
+        z = response[0]
+        return(z)
+    return None
 
 if __name__ == "__main__":
     print('starting raspi stuff')
-    playmovie(infile = "9de7027baa3f.mp4")
-    setup()
+#    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
+    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
+    mov = movietime()
+    while(1):
+	read_string = serialread()
+	if 'startmovie' in read_string:
+            print('yay starting movie')
+#            movie = playmovie(infile = "9de7027baa3f.mp4")
+            a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+#            mov.playmovie(infile = "9de7027baa3f.mp4")
+	if 'pausemovie' in read_string:
+            print('yay pausing movie')
+#            mov.pausemovie()
+            a.send('p')
+
+a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+
+a.send('q')
+
+#    setup()
 
