@@ -202,7 +202,7 @@ def masterloop():
     global pin_pause
     global pin_stop
 
-    minpause = 2.200
+    minpause = 0.5
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
