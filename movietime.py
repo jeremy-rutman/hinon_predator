@@ -23,39 +23,42 @@ import pexpect
 # 3.3VOLTS !!!!! to the gpio pins...
 import RPi.GPIO as GPIO
 
-
-def setup():
-    pin_start_movie = 4
-    pin_reset = 6
-    pin_scrensaver = 8
-    pin_go_to_zero_positions = 10
+def setup_gpio(master=True):
+    pin_start_movie1 = 4
+    pin_start_movie2 = 5
+    pin_start_movie3 = 6
+    pin_start_movie4 = 7
+    pin_pause = 8
+    pin_stop = 9
+    
+    if master:
+        mode=GPIO.OUT
+    else:
+	mode=GPIO.IN
 
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(pin_start_movie, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_reset, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_screensaver, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_go_to_zero_positions, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_start_movie2,mode, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_start_movie3,mode, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_DOWN)
 
-    GPIO.add_event_detect(pin_start_movie, GPIO.RISING)
-    GPIO.add_event_detect(pin_reset, GPIO.RISING)
-    GPIO.add_event_detect(pin_screensaver, GPIO.RISING)
-    GPIO.add_event_detect(pin_go_to_zero_positions, GPIO.RISING)
-	#GPIO.add_event_detect(4, GPIO.BOTH)
-    GPIO.add_event_callback(pin_start_movie, movie_callback)
-    GPIO.add_event_callback(pin_reset, reset_callback)
-    GPIO.add_event_callback(pin_screensaver, screensaver_callback)
-    GPIO.add_event_callback(pin_go_to_zero_positions, zero_callback)
+    if slave:
+        GPIO.add_event_detect(pin_start_movie1, GPIO.RISING)
+        GPIO.add_event_detect(pin_start_movie2, GPIO.RISING)
+        GPIO.add_event_detect(pin_start_movie3, GPIO.RISING)
+        GPIO.add_event_detect(pin_start_movie4, GPIO.RISING)
+        GPIO.add_event_detect(pin_pause, GPIO.RISING)
+        GPIO.add_event_detect(pin_stop, GPIO.RISING)
 
-    #GPIO.add_event_detect(channel, GPIO.RISING, callback=my_callback, bouncetime=200)
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-#GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-   
-#def buttonPressed(value):
-#    print('Scored! %s'%value)
-   
-#GPIO.add_event_detect(17, GPIO.FALLING, callback=lambda x: buttonPressed(50), bouncetime=2000)
-#GPIO.add_event_detect(27, GPIO.FALLING, callback=lambda x: buttonPressed(150), bouncetime=2000)
+        GPIO.add_event_callback(pin_start_movie1, slave_movie1_callback)
+        GPIO.add_event_callback(pin_start_movie2, slave_movie2_callback)
+        GPIO.add_event_callback(pin_start_movie3, slave_movie3_callback)
+        GPIO.add_event_callback(pin_start_movie4, slave_movie4_callback)
+        GPIO.add_event_callback(pin_pause, slave_pause_callback)
+        GPIO.add_event_callback(pin_stop, slave_stop_callback)
+
 
 def movie_callback():
     print 'MOVIE PUSHED!'
@@ -101,9 +104,10 @@ def serialread():
         return(z)
     return None
 
-if __name__ == "__main__":
-    print('starting raspi stuff')
-#    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
+def slaveloop():
+    setup_gpio()
+
+def masterloop():
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
     mov = movietime()
     while(1):
@@ -112,6 +116,15 @@ if __name__ == "__main__":
 	    if 'start' in read_string:
                 print('yay starting movie')
 		if 'movie1' in read_string:
+                    print('starting movie1')
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+		if 'movie2' in read_string:
+                    print('starting movie1')
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+		if 'movie3' in read_string:
+                    print('starting movie1')
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+		if 'movie4' in read_string:
                     print('starting movie1')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
 	    if 'pause' in read_string:
@@ -129,3 +142,14 @@ a.send('q')
 #                movie = playmovie(infile = "9de7027baa3f.mp4")
 #                mov.playmovie(infile = "9de7027baa3f.mp4")
 #                mov.pausemovie()
+
+
+
+master = true
+if __name__ == "__main__":
+    print('starting raspi stuff')
+#    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
+    if master:
+	masterloop()
+    else:
+	slaveloop()
