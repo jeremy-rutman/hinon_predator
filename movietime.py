@@ -28,10 +28,11 @@ from uuid import getnode as get_mac
 import RPi.GPIO as GPIO
 
 def setup_gpio(master=True):
-    pin_start_movie1 = 2
-    pin_start_movie2 = 3
-    pin_start_movie3 = 4
-    pin_start_movie4 = 17
+    pin_start_movie1 = 4
+    pin_start_movie2 = 17
+    pin_start_movie3 = 27
+    pin_start_movie4 = 22
+
     pin_pause = 27
     pin_stop = 22
     
@@ -165,20 +166,19 @@ class movietime:
 
 
 def serialread(serialport):
-    serialport.flush()
+#    serialport.flush()
     serialport.write('ears on bro')
+    print("checking")
     response = serialport.readlines(None)
 #    response = serial.readlines(None)
     print("got: "+str(response))
     if len(response)>0:
         z = response[0]
-	serialport.flush()
+#	serialport.flush()
         return(z)
     print('got none string')
-    serialport.flush()
+#    serialport.flush()
     return None
-
-
 
 
 def serialwrite(serialport,strn='hello'):
@@ -194,16 +194,16 @@ def slaveloop():
 	time.sleep(0.05)
 
 def masterloop():
-    pin_start_movie1 = 2
-    pin_start_movie2 = 3
-    pin_start_movie3 = 4
-    pin_start_movie4 = 17
+    pin_start_movie1 = 4
+    pin_start_movie2 = 17
+    pin_start_movie3 = 27
+    pin_start_movie4 = 22
     pin_pause = 27
     pin_stop = 22
     minpause = 0.200
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
-    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
   #  mov = movietime()
     while(1):
 	read_string = serialread(serialport)
