@@ -34,18 +34,24 @@ def setup_gpio(master=True):
     pin_pause = 8
     pin_stop = 9
     
+    GPIO.setmode(GPIO.BCM)
     if master:
         mode=GPIO.OUT
+        GPIO.setup(pin_start_movie1,mode)
+        GPIO.setup(pin_start_movie2,mode)
+        GPIO.setup(pin_start_movie3,mode)
+        GPIO.setup(pin_start_movie4,mode)
+        GPIO.setup(pin_pause,mode)
+        GPIO.setup(pin_stop,mode)
     else:
 	mode=GPIO.IN
+        GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_start_movie2,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_start_movie3,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_DOWN)
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_start_movie2,mode, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_start_movie3,mode, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_DOWN)
 #    GPIO.output(25, GPIO.input(4))
 
     if slave:
@@ -168,7 +174,7 @@ def masterloop():
 
 
 
-master = true
+master = True
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
