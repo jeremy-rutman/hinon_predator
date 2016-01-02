@@ -16,7 +16,8 @@ import subprocess
 import os
 import glob
 import serial
-from pyomxplayer import OMXPlayer
+import pexpect 
+#from pyomxplayer import OMXPlayer
 
 #gpio read
 # 3.3VOLTS !!!!! to the gpio pins...
@@ -74,10 +75,7 @@ def zero_callback():
     print 'ZERO PUSHED!'
 
 
-class movietime:\
-
-
-
+class movietime:
     def playmovie(self,infile = '/media/usb/movie.mp4'):
 #omxplayer -o both --no-osd --audio_fifo 0.01 --video_fifo 0.01 9de7027baa3f.mp4 
 
@@ -91,7 +89,7 @@ class movietime:\
         self.loop1.toggle_pause()
 
 
-def serialread(self):
+def serialread():
     strn = "string sending"
 #    serialport.write(strn)
 #    print("sending: "+str(strn))
@@ -110,19 +108,24 @@ if __name__ == "__main__":
     mov = movietime()
     while(1):
 	read_string = serialread()
-	if 'startmovie' in read_string:
-            print('yay starting movie')
-#            movie = playmovie(infile = "9de7027baa3f.mp4")
-            a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
-#            mov.playmovie(infile = "9de7027baa3f.mp4")
-	if 'pausemovie' in read_string:
-            print('yay pausing movie')
-#            mov.pausemovie()
-            a.send('p')
+	if read_string is not None:
+	    if 'start' in read_string:
+                print('yay starting movie')
+		if 'movie1' in read_string:
+                    print('starting movie1')
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+	    if 'pause' in read_string:
+                print('yay pausing movie')
+                a.send('p')
+	    if 'quit' in read_string:
+                print('yay stopping movie')
+                a.send('q')
 
 a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
 
 a.send('q')
 
 #    setup()
-
+#                movie = playmovie(infile = "9de7027baa3f.mp4")
+#                mov.playmovie(infile = "9de7027baa3f.mp4")
+#                mov.pausemovie()
