@@ -202,19 +202,19 @@ def masterloop():
     global pin_pause
     global pin_stop
 
-    GPIO.output(pin_start_movie1,False)
-    GPIO.output(pin_start_movie2,False)
-    GPIO.output(pin_start_movie3,False)
-    GPIO.output(pin_start_movie4,False)
-    GPIO.output(pin_pause,False)
-    GPIO.output(pin_stop,False)
-
     minpause = 2.200
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
   #  mov = movietime()
     while(1):
+        GPIO.output(pin_start_movie1,False)
+        GPIO.output(pin_start_movie2,False)
+        GPIO.output(pin_start_movie3,False)
+        GPIO.output(pin_start_movie4,False)
+        GPIO.output(pin_pause,False)
+        GPIO.output(pin_stop,False)
+
 	read_string = serialread(serialport)
 	print('read string:'+str(read_string))
 	if read_string is not None:
