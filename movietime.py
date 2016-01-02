@@ -174,11 +174,14 @@ def masterloop():
 
 
 
-master = True
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
-    print('mac:'+str(mac))
+    if mac == 202481586470451
+ 	master = True
+    else:
+	master = False
+    print('mac:'+str(mac) +' i am master='+str(master))
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
     if master:
 	masterloop()
