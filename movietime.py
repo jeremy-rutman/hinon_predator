@@ -17,6 +17,9 @@ import os
 import glob
 import serial
 import pexpect 
+import time
+from uuid import getnode as get_mac
+
 #from pyomxplayer import OMXPlayer
 
 #gpio read
@@ -43,6 +46,7 @@ def setup_gpio(master=True):
     GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_DOWN)
+#    GPIO.output(25, GPIO.input(4))
 
     if slave:
         GPIO.add_event_detect(pin_start_movie1, GPIO.RISING)
@@ -59,23 +63,41 @@ def setup_gpio(master=True):
         GPIO.add_event_callback(pin_pause, slave_pause_callback)
         GPIO.add_event_callback(pin_stop, slave_stop_callback)
 
+global mov 
+mov = None
+def slave_movie1_callback():
+    print 'movie1 slave'
+    slave_movie = '1.mp4'
+    global mov
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
 
-def movie_callback():
-    print 'MOVIE PUSHED!'
-    infile = '/media/usb/movie.mp4'
-    playmovie(infile=infile)
-#    GPIO.output(25, GPIO.input(4))
+def slave_movie2_callback():
+    print 'movie2 slave'
+    slave_movie = '2.mp4'
+    global mov
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
 
-def reset_callback():
-    print 'RESET PUSHED!'
+def slave_movie3_callback():
+    print 'movie3 slave'
+    slave_movie = '3.mpeg'
+    global mov 
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
 
-def screensaver_callback():
-    print 'SCREENSAVER PUSHED!'
-    infile = '/media/usb/movie.mp4'
-    playmovie(infile=infile)
+def slave_movie4_callback():
+    print 'movie4 slave'
+    slave_movie = '4.ogv'
+    global mov 
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
 
-def zero_callback():
-    print 'ZERO PUSHED!'
+def slave_pause_callback():
+    print 'slave attempting pause'
+    global mov
+    mov.send('p')
+
+def slave_stop_callback():
+    print 'slave attempting stop'
+    global mov
+    mov.send('q')
 
 
 class movietime:
@@ -93,21 +115,25 @@ class movietime:
 
 
 def serialread():
-    strn = "string sending"
-#    serialport.write(strn)
-#    print("sending: "+str(strn))
     response = serialport.readlines(None)
     print("got: "+str(response))
-   # print(response.type())
     if len(response)>0:
         z = response[0]
         return(z)
     return None
 
+def serialwrite(strn='hello'):
+    print("sending: "+str(strn))
+    serialport.write(strn)
+
 def slaveloop():
-    setup_gpio()
+    setup_gpio(master=False)
+    while(1):
+        sys.stdout.write('.')
+	time.sleep(0.5)
 
 def masterloop():
+    setup_gpio(master=True)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
     mov = movietime()
     while(1):
@@ -117,16 +143,16 @@ def masterloop():
                 print('yay starting movie')
 		if 'movie1' in read_string:
                     print('starting movie1')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 1.mp4")
 		if 'movie2' in read_string:
                     print('starting movie1')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 2.mp4")
 		if 'movie3' in read_string:
                     print('starting movie1')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
 		if 'movie4' in read_string:
                     print('starting movie1')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
 	    if 'pause' in read_string:
                 print('yay pausing movie')
                 a.send('p')
@@ -134,9 +160,6 @@ def masterloop():
                 print('yay stopping movie')
                 a.send('q')
 
-a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 9de7027baa3f.mp4")
-
-a.send('q')
 
 #    setup()
 #                movie = playmovie(infile = "9de7027baa3f.mp4")
@@ -148,6 +171,8 @@ a.send('q')
 master = true
 if __name__ == "__main__":
     print('starting raspi stuff')
+    mac = get_mac()
+    print('mac:'+str(mac))
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
     if master:
 	masterloop()
