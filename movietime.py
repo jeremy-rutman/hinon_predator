@@ -184,7 +184,7 @@ def slaveloop():
     setup_gpio(master=False)
     while(1):
         sys.stdout.write('.')
-	checkpins()
+	check_pins()
 	time.sleep(0.05)
 
 def masterloop():
