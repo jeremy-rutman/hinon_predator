@@ -19,6 +19,7 @@ import serial
 import pexpect 
 import time
 from uuid import getnode as get_mac
+#import pyserial
 
 #from pyomxplayer import OMXPlayer
 
@@ -45,16 +46,16 @@ def setup_gpio(master=True):
         GPIO.setup(pin_stop,mode)
     else:
 	mode=GPIO.IN
-        GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(pin_start_movie2,mode, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(pin_start_movie3,mode, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin_start_movie2,mode, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin_start_movie3,mode, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin_start_movie4,mode, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin_pause,mode, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(pin_stop,mode, pull_up_down=GPIO.PUD_UP)
 
 #    GPIO.output(25, GPIO.input(4))
 
-    if slave:
+    if not master:
         GPIO.add_event_detect(pin_start_movie1, GPIO.RISING)
         GPIO.add_event_detect(pin_start_movie2, GPIO.RISING)
         GPIO.add_event_detect(pin_start_movie3, GPIO.RISING)
@@ -120,17 +121,19 @@ class movietime:
         self.loop1.toggle_pause()
 
 
-def serialread():
+def serialread(serialport):
     response = serialport.readlines(None)
+#    response = serial.readlines(None)
     print("got: "+str(response))
     if len(response)>0:
         z = response[0]
         return(z)
     return None
 
-def serialwrite(strn='hello'):
+def serialwrite(serialport,strn='hello'):
     print("sending: "+str(strn))
     serialport.write(strn)
+#    serial.write(strn)
 
 def slaveloop():
     setup_gpio(master=False)
@@ -143,7 +146,7 @@ def masterloop():
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
     mov = movietime()
     while(1):
-	read_string = serialread()
+	read_string = serialread(serialport)
 	if read_string is not None:
 	    if 'start' in read_string:
                 print('yay starting movie')
