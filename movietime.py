@@ -193,13 +193,14 @@ def masterloop():
     pin_start_movie4 = 17
     pin_pause = 27
     pin_stop = 22
-    minpause = 200
+    minpause = 0.200
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
   #  mov = movietime()
     while(1):
 	read_string = serialread(serialport)
+	print('read string:'+str(read_string))
 	if read_string is not None:
 	    if 'start' in read_string:
                 print('yay starting movie')
