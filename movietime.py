@@ -122,13 +122,21 @@ class movietime:
 
 
 def serialread(serialport):
+    serialport.flush()
+    serialport.write('ears on bro')
     response = serialport.readlines(None)
 #    response = serial.readlines(None)
     print("got: "+str(response))
     if len(response)>0:
         z = response[0]
+	serialport.flush()
         return(z)
+    print('got none string')
+    serialport.flush()
     return None
+
+
+
 
 def serialwrite(serialport,strn='hello'):
     print("sending: "+str(strn))
@@ -143,7 +151,8 @@ def slaveloop():
 
 def masterloop():
     setup_gpio(master=True)
-    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
+    #ard = serial.Serial(port,9600,timeout=5)
+    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
     mov = movietime()
     while(1):
 	read_string = serialread(serialport)
@@ -154,13 +163,13 @@ def masterloop():
                     print('starting movie1')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 1.mp4")
 		if 'movie2' in read_string:
-                    print('starting movie1')
+                    print('starting movie2')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 2.mp4")
 		if 'movie3' in read_string:
-                    print('starting movie1')
+                    print('starting movie3')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
 		if 'movie4' in read_string:
-                    print('starting movie1')
+                    print('starting movie4')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
 	    if 'pause' in read_string:
                 print('yay pausing movie')
@@ -168,7 +177,8 @@ def masterloop():
 	    if 'quit' in read_string:
                 print('yay stopping movie')
                 a.send('q')
-
+	else:
+	    print('read string dont make no sense bro')
 
 #    setup()
 #                movie = playmovie(infile = "9de7027baa3f.mp4")
