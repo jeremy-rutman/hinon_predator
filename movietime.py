@@ -177,7 +177,7 @@ def masterloop():
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
-    if mac == 202481586470451
+    if mac == 202481586470451:
  	master = True
     else:
 	master = False
