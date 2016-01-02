@@ -27,12 +27,12 @@ from uuid import getnode as get_mac
 import RPi.GPIO as GPIO
 
 def setup_gpio(master=True):
-    pin_start_movie1 = 4
-    pin_start_movie2 = 5
-    pin_start_movie3 = 6
-    pin_start_movie4 = 7
-    pin_pause = 8
-    pin_stop = 9
+    pin_start_movie1 = 2
+    pin_start_movie2 = 3
+    pin_start_movie3 = 4
+    pin_start_movie4 = 17
+    pin_pause = 27
+    pin_stop = 22
     
     GPIO.setmode(GPIO.BCM)
     if master:
