@@ -95,22 +95,22 @@ def check_pins():
 # Initialise GPIO10 to high (true) so that the LED is off. 
 #    GPIO.output(10, True) 
     if GPIO.input(pin_start_movie1): 
-	print('pin 1 on')
+	print('pin 1('+str(pin_start_movie1)+')on')
 	slave_movie1_callback()
     if GPIO.input(pin_start_movie2): 
-	print('pin 2 on')
-	slave_movie1_callback()
+	print('pin 2('+str(pin_start_movie2)+')on')
+	slave_movie2_callback()
     if GPIO.input(pin_start_movie3): 
-	print('pin 3 on')
-	slave_movie1_callback()
+	print('pin 3('+str(pin_start_movie3)+')on')
+	slave_movie3_callback()
     if GPIO.input(pin_start_movie4): 
-	print('pin 4 on')
-	slave_movie1_callback()
+	print('pin 4('+str(pin_start_movie4)+')on')
+	slave_movie4_callback()
     if GPIO.input(pin_pause): 
-	print('pin 5 on')
+	print('pin pause('+str(pin_pause)+')on')
 	slave_pause_callback()
     if GPIO.input(pin_stop): 
-	print('pin 6 on')
+	print('pin stop('+str(pin_stop)+')on')
 	slave_stop_callback()
 
 
@@ -202,7 +202,7 @@ def masterloop():
     global pin_pause
     global pin_stop
 
-    minpause = 0.200
+    minpause = 2.200
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
@@ -222,21 +222,21 @@ def masterloop():
 		if 'movie2' in read_string:
                     print('starting movie2')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 2.mp4")
-		    GPIO.output(pin_start_movie1,True)
+		    GPIO.output(pin_start_movie2,True)
 		    time.sleep(minpause)		   
-		    GPIO.output(pin_start_movie1,False)
+		    GPIO.output(pin_start_movie2,False)
 		if 'movie3' in read_string:
                     print('starting movie3')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
-		    GPIO.output(pin_start_movie1,True)
+		    GPIO.output(pin_start_movie3,True)
 		    time.sleep(minpause)		   
-		    GPIO.output(pin_start_movie1,False)
+		    GPIO.output(pin_start_movie3,False)
 		if 'movie4' in read_string:
                     print('starting movie4')
                     a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
-		    GPIO.output(pin_start_movie1,True)
+		    GPIO.output(pin_start_movie4,True)
 		    time.sleep(minpause)		   
-		    GPIO.output(pin_start_movie1,False)
+		    GPIO.output(pin_start_movie4,False)
 	    if 'pause' in read_string:
                 print('yay pausing movie')
                 a.send('p')
