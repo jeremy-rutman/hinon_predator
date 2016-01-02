@@ -91,18 +91,24 @@ def check_pins():
 #    GPIO pin 8 is the input. 
 #    GPIO.setup(8, GPIO.IN) 
 # Initialise GPIO10 to high (true) so that the LED is off. 
-    GPIO.output(10, True) 
+#    GPIO.output(10, True) 
     if GPIO.input(pin_start_movie1): 
+	print('pin 1 on')
 	slave_movie1_callback()
     if GPIO.input(pin_start_movie2): 
+	print('pin 2 on')
 	slave_movie1_callback()
     if GPIO.input(pin_start_movie3): 
+	print('pin 3 on')
 	slave_movie1_callback()
     if GPIO.input(pin_start_movie4): 
+	print('pin 4 on')
 	slave_movie1_callback()
     if GPIO.input(pin_pause): 
+	print('pin 5 on')
 	slave_pause_callback()
     if GPIO.input(pin_stop): 
+	print('pin 6 on')
 	slave_stop_callback()
 
 
