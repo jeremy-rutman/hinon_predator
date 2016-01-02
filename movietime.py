@@ -28,16 +28,16 @@ from uuid import getnode as get_mac
 import RPi.GPIO as GPIO
 
 def setup_gpio(master=True):
-    pin_start_movie1 = 4
-    pin_start_movie2 = 17
-    pin_start_movie3 = 27
-    pin_start_movie4 = 22
+    global pin_start_movie1
+    global pin_start_movie2
+    global pin_start_movie3
+    global pin_start_movie4 
+    global pin_pause
+    global pin_stop
 
-    pin_pause = 27
-    pin_stop = 22
-    
     GPIO.setmode(GPIO.BCM)
     if master:
+        print('setting up pins as master')    
         mode=GPIO.OUT
         GPIO.setup(pin_start_movie1,mode)
         GPIO.setup(pin_start_movie2,mode)
@@ -54,6 +54,7 @@ def setup_gpio(master=True):
         GPIO.output(pin_stop,False)
 
     else:
+        print('setting up pins as slave')    
 	mode=GPIO.IN
 #        GPIO.setup(pin_start_movie1,mode, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(pin_start_movie1,mode)
@@ -82,12 +83,12 @@ def setup_gpio(master=True):
 #        GPIO.add_event_callback(pin_stop, slave_stop_callback)
 
 def check_pins():
-    pin_start_movie1 = 2
-    pin_start_movie2 = 3
-    pin_start_movie3 = 4
-    pin_start_movie4 = 17
-    pin_pause = 27
-    pin_stop = 22
+    global pin_start_movie1
+    global pin_start_movie2
+    global pin_start_movie3
+    global pin_start_movie4 
+    global pin_pause
+    global pin_stop
 #    GPIO.setup(10, GPIO.OUT) 
 #    GPIO pin 8 is the input. 
 #    GPIO.setup(8, GPIO.IN) 
@@ -194,12 +195,13 @@ def slaveloop():
 	time.sleep(0.05)
 
 def masterloop():
-    pin_start_movie1 = 4
-    pin_start_movie2 = 17
-    pin_start_movie3 = 27
-    pin_start_movie4 = 22
-    pin_pause = 27
-    pin_stop = 22
+    global pin_start_movie1
+    global pin_start_movie2
+    global pin_start_movie3
+    global pin_start_movie4 
+    global pin_pause
+    global pin_stop
+
     minpause = 0.200
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
@@ -257,6 +259,18 @@ def masterloop():
 
 
 
+global pin_start_movie1
+global pin_start_movie2
+global pin_start_movie3
+global pin_start_movie4 
+global pin_pause
+global pin_stop
+pin_start_movie1 = 4
+pin_start_movie2 = 17
+pin_start_movie3 = 27
+pin_start_movie4 = 22
+pin_pause = 27
+pin_stop = 22
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
