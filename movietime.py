@@ -184,7 +184,8 @@ def slaveloop():
     setup_gpio(master=False)
     while(1):
         sys.stdout.write('.')
-	time.sleep(0.5)
+	checkpins()
+	time.sleep(0.05)
 
 def masterloop():
     pin_start_movie1 = 2
