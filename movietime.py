@@ -56,12 +56,13 @@ def setup_gpio(master=True):
 #    GPIO.output(25, GPIO.input(4))
 
     if not master:
-        GPIO.add_event_detect(pin_start_movie1, GPIO.RISING)
-        GPIO.add_event_detect(pin_start_movie2, GPIO.RISING)
-        GPIO.add_event_detect(pin_start_movie3, GPIO.RISING)
-        GPIO.add_event_detect(pin_start_movie4, GPIO.RISING)
-        GPIO.add_event_detect(pin_pause, GPIO.RISING)
-        GPIO.add_event_detect(pin_stop, GPIO.RISING)
+	edge=GPIO.FALLING
+        GPIO.add_event_detect(pin_start_movie1, edge)
+        GPIO.add_event_detect(pin_start_movie2, edge)
+        GPIO.add_event_detect(pin_start_movie3, edge)
+        GPIO.add_event_detect(pin_start_movie4, edge)
+        GPIO.add_event_detect(pin_pause, edge)
+        GPIO.add_event_detect(pin_stop, edge)
 
         GPIO.add_event_callback(pin_start_movie1, slave_movie1_callback)
         GPIO.add_event_callback(pin_start_movie2, slave_movie2_callback)
