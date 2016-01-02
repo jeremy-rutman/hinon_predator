@@ -192,7 +192,7 @@ def slaveloop():
     while(1):
         sys.stdout.write('.')
 	check_pins()
-	time.sleep(0.05)
+	#time.sleep(0.05)
 
 def masterloop():
     global pin_start_movie1
@@ -201,6 +201,13 @@ def masterloop():
     global pin_start_movie4 
     global pin_pause
     global pin_stop
+
+    GPIO.output(pin_start_movie1,False)
+    GPIO.output(pin_start_movie2,False)
+    GPIO.output(pin_start_movie3,False)
+    GPIO.output(pin_start_movie4,False)
+    GPIO.output(pin_pause,False)
+    GPIO.output(pin_stop,False)
 
     minpause = 2.200
     setup_gpio(master=True)
@@ -215,38 +222,38 @@ def masterloop():
                 print('yay starting movie')
 		if 'movie1' in read_string:
                     print('starting movie1')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 1.mp4")
 		    GPIO.output(pin_start_movie1,True)
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 1.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie1,False)
 		if 'movie2' in read_string:
                     print('starting movie2')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 2.mp4")
 		    GPIO.output(pin_start_movie2,True)
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 2.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie2,False)
 		if 'movie3' in read_string:
                     print('starting movie3')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
 		    GPIO.output(pin_start_movie3,True)
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie3,False)
 		if 'movie4' in read_string:
                     print('starting movie4')
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
 		    GPIO.output(pin_start_movie4,True)
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie4,False)
 	    if 'pause' in read_string:
                 print('yay pausing movie')
-                a.send('p')
 		GPIO.output(pin_pause,True)
+                a.send('p')
 		time.sleep(minpause)		   
 		GPIO.output(pin_pause,False)
 	    if 'quit' in read_string:
                 print('yay stopping movie')
-                a.send('q')
 		GPIO.output(pin_stop,True)
+                a.send('q')
 		time.sleep(minpause)		   
 		GPIO.output(pin_stop,False)
 	else:
