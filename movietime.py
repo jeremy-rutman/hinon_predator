@@ -56,7 +56,7 @@ def setup_gpio(master=True):
 #    GPIO.output(25, GPIO.input(4))
 
     if not master:
-	edge=GPIO.FALLING
+	edge=GPIO.BOTH
         GPIO.add_event_detect(pin_start_movie1, edge)
         GPIO.add_event_detect(pin_start_movie2, edge)
         GPIO.add_event_detect(pin_start_movie3, edge)
