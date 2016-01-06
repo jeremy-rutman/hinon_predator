@@ -198,8 +198,11 @@ def serialwrite(serialport,strn='hello'):
 
 def slaveloop():
     setup_gpio(master=False)
+    n=0
     while(1):
-        sys.stdout.write('.')
+	n=(n+1)%10000
+        if n==0:
+	    sys.stdout.write('.')
 	check_pins()
 	#time.sleep(0.05)
 
