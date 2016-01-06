@@ -168,16 +168,18 @@ class movietime:
 
 def serialread(serialport):
 #    serialport.flush()
-    serialport.write('ears on bro')
-    print("checking")
-    response = serialport.readlines(None)
+#    serialport.write('ears on bro')
+#    print("checking")
+#    response = serialport.readlines(None)
+    response = serialport.readline(None)  #read only single line
 #    response = serial.readlines(None)
-    print("got: "+str(response))
+#    print("got: "+str(response))
     if len(response)>0:
-        z = response[0]
-#	serialport.flush()
+	z=response
+        #z = response[0]
+	serialport.flush()
         return(z)
-    print('got none string')
+#    print('got none string')
 #    serialport.flush()
     return None
 
@@ -202,12 +204,14 @@ def masterloop():
     global pin_pause
     global pin_stop
 
-    minpause = 0.5
+    minpause = 0.1
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
     serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
   #  mov = movietime()
+    a = None
     while(1):
+        serialport.flush()
         GPIO.output(pin_start_movie1,False)
         GPIO.output(pin_start_movie2,False)
         GPIO.output(pin_start_movie3,False)
@@ -246,18 +250,21 @@ def masterloop():
 		    GPIO.output(pin_start_movie4,False)
 	    if 'pause' in read_string:
                 print('yay pausing movie')
-		GPIO.output(pin_pause,True)
-                a.send('p')
-		time.sleep(minpause)		   
-		GPIO.output(pin_pause,False)
+		if a:
+		    GPIO.output(pin_pause,True)
+                    a.send('p')
+		    time.sleep(minpause)		   
+		    GPIO.output(pin_pause,False)
 	    if 'quit' in read_string:
                 print('yay stopping movie')
-		GPIO.output(pin_stop,True)
-                a.send('q')
-		time.sleep(minpause)		   
-		GPIO.output(pin_stop,False)
+		if a:
+		    GPIO.output(pin_stop,True)
+                    a.send('q')
+		    time.sleep(minpause)		   
+		    GPIO.output(pin_stop,False)
 	else:
-	    print('read string dont make no sense bro')
+            pass
+#	    print('read string dont make no sense bro')
 
 #    setup()
 #                movie = playmovie(infile = "9de7027baa3f.mp4")
@@ -272,20 +279,22 @@ global pin_start_movie3
 global pin_start_movie4 
 global pin_pause
 global pin_stop
-pin_start_movie1 = 4
-pin_start_movie2 = 17
-pin_start_movie3 = 27
-pin_start_movie4 = 22
-pin_pause = 27
-pin_stop = 22
+pin_start_movie1 = 4  #pin 7   see http://pinout.xyz
+pin_start_movie2 = 17 #pin 11
+pin_start_movie3 = 27 #pin 13
+pin_start_movie4 = 22 #pin 15
+pin_pause = 18   #pin 12
+pin_stop = 23  #pin 16
+
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
     if mac == 202481586470451:
  	master = True
     else:
-	master = False
+	master = True
     print('mac:'+str(mac) +' i am master='+str(master))
+    time.sleep(5)
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
     if master:
 	masterloop()
