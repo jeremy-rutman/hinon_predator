@@ -97,18 +97,23 @@ def check_pins():
     if GPIO.input(pin_start_movie1): 
 	print('pin 1('+str(pin_start_movie1)+')on')
 	slave_movie1_callback()
+
     if GPIO.input(pin_start_movie2): 
 	print('pin 2('+str(pin_start_movie2)+')on')
 	slave_movie2_callback()
+
     if GPIO.input(pin_start_movie3): 
 	print('pin 3('+str(pin_start_movie3)+')on')
 	slave_movie3_callback()
+
     if GPIO.input(pin_start_movie4): 
 	print('pin 4('+str(pin_start_movie4)+')on')
 	slave_movie4_callback()
+
     if GPIO.input(pin_pause): 
 	print('pin pause('+str(pin_pause)+')on')
 	slave_pause_callback()
+
     if GPIO.input(pin_stop): 
 	print('pin stop('+str(pin_stop)+')on')
 	slave_stop_callback()
@@ -119,37 +124,39 @@ global mov
 mov = None
 def slave_movie1_callback():
     print 'movie1 slave'
-    slave_movie = '1.mp4'
+    slave_movie = '5.mp4'
     global mov
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
 
 def slave_movie2_callback():
     print 'movie2 slave'
-    slave_movie = '2.mp4'
+    slave_movie = '6.mp4'
     global mov
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
 
 def slave_movie3_callback():
     print 'movie3 slave'
-    slave_movie = '3.mpeg'
+    slave_movie = '7.mp4'
     global mov 
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
 
 def slave_movie4_callback():
     print 'movie4 slave'
-    slave_movie = '4.ogv'
+    slave_movie = '8.mp4'
     global mov 
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi -s " + slave_movie)
+    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
 
 def slave_pause_callback():
     print 'slave attempting pause'
     global mov
-    mov.send('p')
+    if mov is not None:
+        mov.send('p')
 
 def slave_stop_callback():
     print 'slave attempting stop'
     global mov
-    mov.send('q')
+    if mov is not None:
+        mov.send('q')
 
 
 class movietime:
@@ -297,8 +304,8 @@ pin_start_movie1 = 4  #pin 7   see http://pinout.xyz
 pin_start_movie2 = 17 #pin 11
 pin_start_movie3 = 27 #pin 13
 pin_start_movie4 = 22 #pin 15
-pin_pause = 18   #pin 12
-pin_stop = 23  #pin 16
+pin_pause = 10   #pin 12
+pin_stop = 9  #pin 16
 
 if __name__ == "__main__":
     print('starting raspi stuff')
