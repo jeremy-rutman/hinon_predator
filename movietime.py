@@ -239,13 +239,13 @@ def masterloop():
 		if 'movie3' in read_string:
                     print('starting movie3')
 		    GPIO.output(pin_start_movie3,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mpeg")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 3.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie3,False)
 		if 'movie4' in read_string:
                     print('starting movie4')
 		    GPIO.output(pin_start_movie4,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.ogg")
+                    a= pexpect.spawn("/usr/bin/omxplayer"+ " -o hdmi -s 4.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie4,False)
 	    if 'pause' in read_string:
@@ -289,10 +289,10 @@ pin_stop = 23  #pin 16
 if __name__ == "__main__":
     print('starting raspi stuff')
     mac = get_mac()
-    if mac == 202481586470451:
+    if mac == 202481586470451: 
  	master = True
     else:
-	master = True
+	master = False
     print('mac:'+str(mac) +' i am master='+str(master))
     time.sleep(5)
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
