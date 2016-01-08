@@ -19,6 +19,8 @@ import serial
 import pexpect 
 import time
 from uuid import getnode as get_mac
+import logging
+
 #import pyserial
 
 #from pyomxplayer import OMXPlayer
@@ -200,11 +202,13 @@ def slaveloop():
     setup_gpio(master=False)
     n=0
     print('starting slave loop')
+    logging.info('starting slave loop')
     while(1):
 	n=(n+1)%10
         if n==0:
 	    sys.stdout.write('.')
-            
+	    sys.stdout.flush()
+	    logging.info('.')            
 	check_pins()
 #	print('a')
 	time.sleep(0.05)
@@ -313,8 +317,12 @@ pin_start_movie4 = 22 #pin 15
 pin_pause = 10   #pin 12
 pin_stop = 9  #pin 16
 
+logging.basicConfig(filename='movie.log',level=logging.INFO)
+
 if __name__ == "__main__":
     print('starting raspi stuff')
+    logging.info('starting raspi stuff')
+    logging.debug('startsadefing raspi stuff')
     mac = get_mac()
     if mac == 202481586470451: 
  	master = True
