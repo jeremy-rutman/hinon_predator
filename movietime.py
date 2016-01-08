@@ -199,12 +199,15 @@ def serialwrite(serialport,strn='hello'):
 def slaveloop():
     setup_gpio(master=False)
     n=0
+    print('starting slave loop')
     while(1):
-	n=(n+1)%10000
+	n=(n+1)%10
         if n==0:
 	    sys.stdout.write('.')
+            
 	check_pins()
-	#time.sleep(0.05)
+#	print('a')
+	time.sleep(0.05)
 
 def masterloop():
     global pin_start_movie1
