@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-#!/usr/bin/python
 
 # http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
 
@@ -246,25 +242,25 @@ def masterloop():
 		if 'movie1' in read_string:
                     print('starting movie1')
 		    GPIO.output(pin_start_movie1,True)
-                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi 1.mp4")
+                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/1.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie1,False)
 		if 'movie2' in read_string:
                     print('starting movie2')
 		    GPIO.output(pin_start_movie2,True)
-                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi 2.mp4")
+                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/2.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie2,False)
 		if 'movie3' in read_string:
                     print('starting movie3')
 		    GPIO.output(pin_start_movie3,True)
-                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi 3.mp4")
+                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/3.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie3,False)
 		if 'movie4' in read_string:
                     print('starting movie4')
 		    GPIO.output(pin_start_movie4,True)
-                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi 4.mp4")
+                    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/4.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie4,False)
 		if 'zeroing' in read_string:
@@ -320,6 +316,8 @@ pin_pause = 10   #pin 12
 pin_stop = 9  #pin 16
 
 logging.basicConfig(filename='movie.log',level=logging.INFO)
+
+#a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home1.mp4")
 
 if __name__ == "__main__":
     print('starting raspi stuff')
