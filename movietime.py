@@ -324,19 +324,20 @@ logging.basicConfig(filename='movie.log',level=logging.INFO)
 if __name__ == "__main__":
     print('starting raspi stuff')
     logging.info('starting raspi stuff')
-    logging.debug('startsadefing raspi stuff')
-    with open('whoami.txt') as f:
-        data = f.read
-	if 'master' in data:
-            master = True
+    mac = get_mac()
+    if mac == 202481586470451: 
+ 	master = True
+        print('found mac saying this is master pi')
     else:
-        mac = get_mac()
-        if mac == 202481586470451: 
- 	    master = True
-        else:
-	    master = False
+	master = False
+    with open('whoami.txt','r') as f:
+        data = f.read()
+        print('data:'+str(data))
+	if data is not None and 'master' in data:
+            master = True
+            print('found file saying this is master pi')
     print('mac:'+str(mac) +' i am master='+str(master))
-    time.sleep(5)
+    time.sleep(.1)
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
     if master:
 	masterloop()
