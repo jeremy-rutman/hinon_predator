@@ -325,11 +325,16 @@ if __name__ == "__main__":
     print('starting raspi stuff')
     logging.info('starting raspi stuff')
     logging.debug('startsadefing raspi stuff')
-    mac = get_mac()
-    if mac == 202481586470451: 
- 	master = True
+    with open('whoami.txt') as f:
+        data = f.read
+	if 'master' in data:
+            master = True
     else:
-	master = False
+        mac = get_mac()
+        if mac == 202481586470451: 
+ 	    master = True
+        else:
+	    master = False
     print('mac:'+str(mac) +' i am master='+str(master))
     time.sleep(5)
 #    serialport = serial.Serial("/dev/ttyS0", 9600, timeout=0.5)
