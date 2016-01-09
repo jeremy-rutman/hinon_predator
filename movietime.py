@@ -212,6 +212,7 @@ def slaveloop():
 	check_pins()
 #	print('a')
 	time.sleep(0.05)
+	sys.stdout.flush()
 
 def masterloop():
     global pin_start_movie1
@@ -228,6 +229,7 @@ def masterloop():
   #  mov = movietime()
     a = None
     while(1):
+	sys.stdout.flush()
         serialport.flush()
         GPIO.output(pin_start_movie1,False)
         GPIO.output(pin_start_movie2,False)
