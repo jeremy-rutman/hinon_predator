@@ -330,7 +330,7 @@ if __name__ == "__main__":
         print('found mac saying this is master pi')
     else:
 	master = False
-    with open('whoami.txt','r') as f:
+    with open('/home/pi/hinon_predator/whoami.txt','r') as f:
         data = f.read()
         print('data:'+str(data))
 	if data is not None and 'master' in data:
