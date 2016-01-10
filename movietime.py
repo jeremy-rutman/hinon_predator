@@ -238,7 +238,7 @@ def masterloop():
 	print('read string:'+str(read_string))
 	if read_string is not None:
 	    if 'start' in read_string:
-                print('yay starting movie')
+                print('yay got info')
 		if 'movie1' in read_string:
                     print('starting movie1')
 		    GPIO.output(pin_start_movie1,True)
