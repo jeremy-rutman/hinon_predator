@@ -315,12 +315,17 @@ pin_start_movie4 = 22 #pin 15
 pin_pause = 10   #pin 12
 pin_stop = 9  #pin 16
 
-logging.basicConfig(filename='movie.log',level=logging.INFO)
+logging.basicConfig(filename='movie.log',level=logging.CRITICAL)
 
 #a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home1.mp4")
 
 if __name__ == "__main__":
     print('starting raspi stuff')
+    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/3.mp3")
+    time.sleep(5)		   
+    a.send('p')
+    time.sleep(5)		   
+    a.send('p')
     logging.info('starting raspi stuff')
     mac = get_mac()
     if mac == 202481586470451: 
