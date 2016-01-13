@@ -122,25 +122,25 @@ global mov
 mov = None
 def slave_movie1_callback():
     print 'movie1 slave'
-    slave_movie = '5.mp4'
+    slave_movie = '/home/pi/hinon_predator/5.mp4'
     global mov
     mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
 
 def slave_movie2_callback():
     print 'movie2 slave'
-    slave_movie = '6.mp4'
+    slave_movie = '/home/pi/hinon_predator/6.mp4'
     global mov
     mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
 
 def slave_movie3_callback():
     print 'movie3 slave'
-    slave_movie = '7.mp4'
+    slave_movie = '/home/pi/hinon_predator/7.mp4'
     global mov 
     mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
 
 def slave_movie4_callback():
     print 'movie4 slave'
-    slave_movie = '8.mp4'
+    slave_movie = '/home/pi/hinon_predator/8.mp4'
     global mov 
     mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
 
