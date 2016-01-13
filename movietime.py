@@ -223,9 +223,9 @@ def masterloop():
     minpause = 0.2
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
-    serialport = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
+#    serialport = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
 #    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
-#    serialport = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
+    serialport = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
   #  mov = movietime()
     a = None
     while(1):
