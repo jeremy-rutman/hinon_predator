@@ -181,10 +181,12 @@ def serialread(serialport):
 #    print("got: "+str(response))
     if len(response)>0:
 	z=response
-        #z = response[0]
-	serialport.flush()
+#        z = response[0]
+#	serialport.flush()
+        print('got:'+str(response))
+ 	sys.stdout.flush()
         return(z)
-#    print('got none string')
+    print('got none string')
 #    serialport.flush()
     return None
 
@@ -218,10 +220,12 @@ def masterloop():
     global pin_pause
     global pin_stop
 
-    minpause = 0.1
+    minpause = 0.2
     setup_gpio(master=True)
     #ard = serial.Serial(port,9600,timeout=5)
-    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
+    serialport = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
+#    serialport = serial.Serial("/dev/ttyACM0", 9600, timeout=0.5)
+#    serialport = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
   #  mov = movietime()
     a = None
     while(1):
@@ -321,11 +325,11 @@ logging.basicConfig(filename='movie.log',level=logging.CRITICAL)
 
 if __name__ == "__main__":
     print('starting raspi stuff')
-    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/3.mp3")
-    time.sleep(5)		   
-    a.send('p')
-    time.sleep(5)		   
-    a.send('p')
+#    a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/3.mp3")
+#    time.sleep(5)		   
+#    a.send('p')
+#    time.sleep(5)		   
+#    a.send('p')
     logging.info('starting raspi stuff')
     mac = get_mac()
     if mac == 202481586470451: 
