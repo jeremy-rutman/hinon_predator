@@ -226,7 +226,7 @@ def masterloop():
     a = None
     while(1):
 	sys.stdout.flush()
-        serialport.flush()
+#        serialport.flush()
         GPIO.output(pin_start_movie1,False)
         GPIO.output(pin_start_movie2,False)
         GPIO.output(pin_start_movie3,False)
