@@ -183,7 +183,7 @@ def serialread(serialport):
 	z=response
 #        z = response[0]
 #	serialport.flush()
-        print('got:'+str(response))
+#        print('got:'+str(response))
  	sys.stdout.flush()
         return(z)
     print('got none string')
@@ -240,31 +240,35 @@ def masterloop():
 
 	read_string = serialread(serialport)
 	print('read string:'+str(read_string))
+        command = "/usr/bin/omxplayer -o hdmi "
+        debug = True
+        if debug is True:
+            command = command + " --win \"100 100 300 300\"  " 
 	if read_string is not None:
 	    if 'start' in read_string:
                 print('yay got start')
 		if 'movie1' in read_string:
                     print('starting movie1')
 		    GPIO.output(pin_start_movie1,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/1.mp4")
+                    a= pexpect.spawn(command + " /home/pi/hinon_predator/1.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie1,False)
 		if 'movie2' in read_string:
                     print('starting movie2')
 		    GPIO.output(pin_start_movie2,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/2.mp4")
+                    a= pexpect.spawn(command + " /home/pi/hinon_predator/2.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie2,False)
 		if 'movie3' in read_string:
                     print('starting movie3')
 		    GPIO.output(pin_start_movie3,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/3.mp4")
+                    a= pexpect.spawn(command + " /home/pi/hinon_predator/3.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie3,False)
 		if 'movie4' in read_string:
                     print('starting movie4')
 		    GPIO.output(pin_start_movie4,True)
-                    a= pexpect.spawn("/usr/bin/omxplayer -o hdmi /home/pi/hinon_predator/4.mp4")
+                    a= pexpect.spawn(command + " /home/pi/hinon_predator/4.mp4")
 		    time.sleep(minpause)		   
 		    GPIO.output(pin_start_movie4,False)
 		if 'zeroing' in read_string:

@@ -184,11 +184,12 @@ int move_rel(int servonum,int current,int dest,int del)
 
 int zero_all() 
 {
-//   arm(FORWARD);
-//   mydelay(5000);
-//   arm(REVERSE);
-// mydelay(5000);
-// arm(CLOSED);
+   arm(FORWARD);
+   mydelay(5000);
+   arm(REVERSE);
+ mydelay(5000);
+ arm(CLOSED);
+ mydelay(5000);
 
   CURRENT_ACTIVITY= ZERO;
    arm(REVERSE);
@@ -336,8 +337,8 @@ int arm(int direction)
      Serial.println("arm off");
      digitalWrite(ARM_REV_1,HIGH);
      digitalWrite(ARM_REV_2,HIGH);
-     digitalWrite(ARM_REV_1,HIGH);
-     digitalWrite(ARM_REV_2,HIGH);
+     digitalWrite(ARM_FWD_1,HIGH);
+     digitalWrite(ARM_FWD_2,HIGH);
  //     digitalWrite(A0,LOW);
 //      digitalWrite(A1,LOW);
 //      position_rel(ARM,50);
@@ -499,6 +500,9 @@ int screensaver()
   }
 
     if(mydelay(5000)) return 1;
+    Serial.println('finished screensaver');
+    Serial.println('quit movie');
+    
     RETURN_TO=SCREENSAVER;
   
 }
@@ -542,7 +546,7 @@ Serial.println('quit movie'); //stop any currently running movie
 
 //  const int8_t INIT_DELAY = 5 ;
 //  if (mydelay(INIT_DELAY*1000)) return;
-  const int8_t EXTRA_TIME = 0;  //delay time for syncing movie to command from control computer (seconds)
+  const int8_t EXTRA_TIME = 1;  //delay time for syncing movie to command from control computer (seconds)
   i=0;
 
 //the timeline !
@@ -821,7 +825,7 @@ timeline[i]=60+7+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=REVERSE;
   i++;     
-  timeline[i]=120+12+EXTRA_TIME;
+  timeline[i]=120+13+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=CLOSED;
   i++;     
@@ -1251,6 +1255,8 @@ timeline[i]=250+EXTRA_TIME;
   }
 
    if(mydelay(5000)) return(1);
+   Serial.println('finished mov');
+  Serial.println('quit movie');
    RETURN_TO = MOVIE;
  //  zero_all();
 

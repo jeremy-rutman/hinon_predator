@@ -499,6 +499,9 @@ int screensaver()
   }
 
     if(mydelay(5000)) return 1;
+    Serial.println('finished screensaver');
+    Serial.println('quit movie');
+    
     RETURN_TO=SCREENSAVER;
   
 }
@@ -542,7 +545,7 @@ Serial.println('quit movie'); //stop any currently running movie
 
 //  const int8_t INIT_DELAY = 5 ;
 //  if (mydelay(INIT_DELAY*1000)) return;
-  const int8_t EXTRA_TIME = 0;  //delay time for syncing movie to command from control computer (seconds)
+  const int8_t EXTRA_TIME = 1;  //delay time for syncing movie to command from control computer (seconds)
   i=0;
 
 //the timeline !
@@ -1251,6 +1254,8 @@ timeline[i]=250+EXTRA_TIME;
   }
 
    if(mydelay(5000)) return(1);
+   Serial.println('finished mov');
+  Serial.println('quit movie');
    RETURN_TO = MOVIE;
  //  zero_all();
 
