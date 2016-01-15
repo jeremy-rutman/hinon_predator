@@ -427,74 +427,74 @@ int screensaver()
 //takeoff
   if(move_rel(ELE,50,0,20)) return 1;
   if(move_rel(FLP,50,0,50)) return 1;
-  if(move_rel(PIT,50,40,50)) return 1;
+  if(move_rel(PIT,50,20,70)) return 1;
   if(mydelay(500)) return 1;
   if(arm(FORWARD)) return(1);
   if(mydelay(4500)) return 1;
-  move_rel(PIT,40,15,50);
+  move_rel(PIT,20,10,70);
   if(wheels(CLOSED)) return(1);
   if(mydelay(2000)) return(1);
 
 //straighten
   move_rel(ELE,0,50,20);
   move_rel(FLP,0,50,50);
-  move_rel(PIT,35,50,50);
+  move_rel(PIT,10,50,80);
 
   if(mydelay(2000)) return(1);
 
 //random movearound
   if(docheck()) return(1);
-  if(move_rel(YAW,50,55,50)) return 1;
-  if(move_rel(ROLL,50,40,100)) return 1;
+  if(move_rel(YAW,50,70,50)) return 1;
+  if(move_rel(ROLL,50,30,100)) return 1;
   if(move_rel(FLP,50,0,50)) return 1;
   
   if(mydelay(2000)) return(1);
 
   if(docheck()) return(1);
-  if(move_rel(YAW,55,45,50)) return 1;
-  if(move_rel(ROLL,40,60,80)) return 1;
+  if(move_rel(YAW,70,45,50)) return 1;
+  if(move_rel(ROLL,30,60,80)) return 1;
   if(move_rel(FLP,0,100,50)) return 1;
   
   
 //landing
   move_rel(ELE,50,100,20);
-  move_rel(PIT,50,45,50);
+  move_rel(PIT,50,70,50);
   if(mydelay(500)) return 1;
   if(arm(REVERSE)) return(1);
   if(mydelay(1000)) return 1;
   if(wheels(OPEN)) return(1);
   if(mydelay(3000)) return 1;
-  move_rel(PIT,45,50,50);
+  move_rel(PIT,70,50,50);
   if(mydelay(3000)) return 1;
   move_rel(ELE,100,50,20);
   motor(0);
   led(0);
-  if(mydelay(5000)) return 1;
+  if(mydelay(1000)) return 1;
 // Alll this needs to finish by 20s
 
   for(int i=0;i<3;i++)
   {
     led(100);
-    if(move_rel(ELE,50,0,100)) return 1;
+    if(move_rel(ELE,50,0,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,50,0,100)) return 1;
+    if(move_rel(FLP,50,0,20)) return 1;
     if(mydelay(1000)) return 1;
   //  if(move_rel(PIT,50,40,50)) return 1;
   
-    if(move_rel(ELE,0,100,100)) return 1;
+    if(move_rel(ELE,0,100,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,0,100,100)) return 1;
+    if(move_rel(FLP,0,100,20)) return 1;
     if(mydelay(1000)) return 1;
   
   // 
-    if(move_rel(ELE,100,50,100)) return 1;
+    if(move_rel(ELE,100,50,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,0,100,100)) return 1;
+    if(move_rel(FLP,0,100,20)) return 1;
     led(0);
     if(mydelay(1000)) return 1;
   }
 
-    if(mydelay(5000)) return 1;
+    if(mydelay(1000)) return 1;
     Serial.println('finished screensaver');
     Serial.println('quit movie');
     
@@ -589,7 +589,7 @@ Serial.println('quit movie'); //stop any currently running movie
   timeline[i]=24+EXTRA_TIME;
   tl_servos[i]=PIT;   //pitch  tilt airplane
   tl_args1[i]=50;
-  tl_args2[i]=47;
+  tl_args2[i]=40;
   tl_args3[i]=50;
   i++;   
   timeline[i]=24+EXTRA_TIME;
@@ -598,7 +598,7 @@ Serial.println('quit movie'); //stop any currently running movie
   i++;   
   timeline[i]=30+EXTRA_TIME;
   tl_servos[i]=PIT;
-  tl_args1[i]=47;
+  tl_args1[i]=40;
   tl_args2[i]=15;
   tl_args3[i]=50;
   i++;   
@@ -638,14 +638,14 @@ timeline[i]=42+EXTRA_TIME;
   timeline[i]=50+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=40; 
+  tl_args2[i]=30; 
   tl_args3[i]=30;
   i++;   
 
 //roll back
   timeline[i]=52+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=40;
+  tl_args1[i]=30;
   tl_args2[i]=50;
   tl_args3[i]=30;
   i++;   
@@ -698,13 +698,13 @@ timeline[i]=60+7+EXTRA_TIME;
   timeline[i]=60+15+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=60;
+  tl_args2[i]=70;
   tl_args3[i]=100;
   i++;   
 //roll back
-  timeline[i]=60+17+EXTRA_TIME;
+  timeline[i]=60+18+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=60;
+  tl_args1[i]=70;
   tl_args2[i]=50;
   tl_args3[i]=100;
   i++;   
@@ -728,13 +728,13 @@ timeline[i]=60+7+EXTRA_TIME;
   timeline[i]=60+26+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=40;
+  tl_args2[i]=30;
   tl_args3[i]=100;
   i++;   
 //roll back
   timeline[i]=60+28+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=40;
+  tl_args1[i]=30;
   tl_args2[i]=50;
   tl_args3[i]=100;
   i++;   
@@ -799,12 +799,12 @@ timeline[i]=60+7+EXTRA_TIME;
   timeline[i]=60+58+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=45;
+  tl_args2[i]=30;
   tl_args3[i]=100;
   i++;     
   timeline[i]=120+1+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=45;
+  tl_args1[i]=30;
   tl_args2[i]=50;
   tl_args3[i]=100;
   i++;     
@@ -829,69 +829,49 @@ timeline[i]=60+7+EXTRA_TIME;
 timeline[i]=120+20+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=60;
+  tl_args2[i]=70;
   tl_args3[i]=80;
   i++;     
   timeline[i]=120+22+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=60;
+  tl_args1[i]=70;
   tl_args2[i]=50;
   tl_args3[i]=80;
   i++;     
 
-//left turn
-  timeline[i]=120+34+EXTRA_TIME;
+//left turn   - end at 220
+  timeline[i]=120+37+EXTRA_TIME;
   tl_servos[i]=AIL;
   tl_args1[i]=50;
-  tl_args2[i]=30;
+  tl_args2[i]=20;
   tl_args3[i]=40;
   i++;
-  timeline[i]=120+35+EXTRA_TIME;
+  timeline[i]=120+39+EXTRA_TIME;
   tl_servos[i]=YAW;
   tl_args1[i]=50;
-  tl_args2[i]=45;
+  tl_args2[i]=30;
   tl_args3[i]=100;
   i++;     
-  timeline[i]=120+36+EXTRA_TIME;
+  timeline[i]=120+41+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=40;
+  tl_args2[i]=20;
   tl_args3[i]=100;
   i++;     
 
-  timeline[i]=120+38+EXTRA_TIME;
-  tl_servos[i]=AIL;
-  tl_args1[i]=30;
-  tl_args2[i]=50;
-  tl_args3[i]=50;
-  i++;     
 
 //camera on target 9
- timeline[i]=120+40+EXTRA_TIME;
+ timeline[i]=120+45+EXTRA_TIME;
   tl_servos[i]=MTD_YA;
   tl_args1[i]=50;
   tl_args2[i]=40;
   tl_args3[i]=30;
   i++;     
-  timeline[i]=120+40+EXTRA_TIME;
+  timeline[i]=120+47+EXTRA_TIME;
   tl_servos[i]=MTD_PI;
   tl_args1[i]=70;
   tl_args2[i]=0;
   tl_args3[i]=30;
-  i++;     
-
-//RANDOM TILT
-timeline[i]=120+50+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=40;
-  tl_args2[i]=45;
-  tl_args3[i]=80;
-  i++;     
-  timeline[i]=120+52+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=45;
-  tl_args2[i]=50;
-  tl_args3[i]=80;
   i++;     
  
  //camera on target 10
@@ -907,6 +887,9 @@ timeline[i]=180+7+EXTRA_TIME;
   tl_args2[i]=0;
   tl_args3[i]=30;
   i++;     
+
+
+
 
 //camera on target 11
 timeline[i]=180+9+EXTRA_TIME;
@@ -935,69 +918,7 @@ timeline[i]=180+9+EXTRA_TIME;
   tl_args2[i]=0;
   tl_args3[i]=30;
   i++;     
- 
-//RANDOM TILT
-timeline[i]=180+20+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=50;
-  tl_args2[i]=60;
-  tl_args3[i]=80;
-  i++;     
-  timeline[i]=180+25+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=60;
-  tl_args2[i]=40;
-  tl_args3[i]=120;
-  i++;     
-  timeline[i]=180+30+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=40;
-  tl_args2[i]=50;
-  tl_args3[i]=80;
-  i++;     
 
-
-//Random roll
-  timeline[i]=180+35+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=45;
-  tl_args2[i]=55;
-  tl_args3[i]=70;
-  i++;
-  timeline[i]=180+40+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=55;
-  tl_args2[i]=50;
-  tl_args3[i]=100;
-  i++;
-
-  //camera on target 13
-  timeline[i]=180+45+EXTRA_TIME;
-  tl_servos[i]=MTD_YA;
-  tl_args1[i]=50;
-  tl_args2[i]=40;
-  tl_args3[i]=30;
-  i++;     
-  timeline[i]=180+45+EXTRA_TIME;
-  tl_servos[i]=MTD_PI;
-    tl_args1[i]=100;
-  tl_args2[i]=0;
-  tl_args3[i]=30;
-  i++;     
-
-//random rooll
-  timeline[i]=180+46+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=50;
-  tl_args2[i]=55;
-  tl_args3[i]=50;
-  i++;     
-  timeline[i]=180+48+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=55;
-  tl_args2[i]=50;
-  tl_args3[i]=50;
-  i++;     
 
 
   //camera on target 14
@@ -1015,24 +936,25 @@ timeline[i]=180+20+EXTRA_TIME;
   i++;     
 
 //STRAIGHTEN 
-  timeline[i]=231+EXTRA_TIME;
+  timeline[i]=225+EXTRA_TIME;
   tl_servos[i]=YAW;
-  tl_args1[i]=45;
+  tl_args1[i]=30;
   tl_args2[i]=50;
   tl_args3[i]=30;
   i++;     
-  timeline[i]=231+EXTRA_TIME;
+  timeline[i]=228+EXTRA_TIME;
   tl_servos[i]=AIL;
-  tl_args1[i]=30;
+  tl_args1[i]=20;
   tl_args2[i]=50;
   tl_args3[i]=30;
   i++;     
   timeline[i]=231+EXTRA_TIME;
   tl_servos[i]=ROLL;
-  tl_args1[i]=60;
+  tl_args1[i]=20;
   tl_args2[i]=50;
-  tl_args3[i]=30;
+  tl_args3[i]=100;
   i++;     
+
 
 
 //camera on target 15
@@ -1101,7 +1023,15 @@ timeline[i]=250+EXTRA_TIME;
 
 
 //random roll
-  timeline[i]=246+EXTRA_TIME;
+  timeline[i]=252+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=50;
+  tl_args2[i]=25;
+  tl_args3[i]=100;
+  i++;     
+
+//random roll
+  timeline[i]=255+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=25;
   tl_args2[i]=45;
@@ -1131,13 +1061,13 @@ timeline[i]=250+EXTRA_TIME;
   
 //LANDING
 
-  timeline[i]=286+EXTRA_TIME;
+  timeline[i]=295+EXTRA_TIME;
   tl_servos[i]=WHL;
  // position_rel(WHL,100);
   tl_args1[i]=OPEN;
   i++;     
 
-  timeline[i]=288+EXTRA_TIME;
+  timeline[i]=298+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=REVERSE;
   i++;     
@@ -1429,7 +1359,8 @@ void pause()
 void loop() 
 {
 Serial.println("mainloop");
-  
+  Serial.println("quit movie");
+
   if (!STATUS) mydelay(150); 
 
 if (RETURN_TO == SCREENSAVER) STATUS = SCREENSAVER;

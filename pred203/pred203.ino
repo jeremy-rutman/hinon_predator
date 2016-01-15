@@ -427,74 +427,74 @@ int screensaver()
 //takeoff
   if(move_rel(ELE,50,0,20)) return 1;
   if(move_rel(FLP,50,0,50)) return 1;
-  if(move_rel(PIT,50,40,50)) return 1;
+  if(move_rel(PIT,50,20,70)) return 1;
   if(mydelay(500)) return 1;
   if(arm(FORWARD)) return(1);
   if(mydelay(4500)) return 1;
-  move_rel(PIT,40,15,50);
+  move_rel(PIT,20,10,70);
   if(wheels(CLOSED)) return(1);
   if(mydelay(2000)) return(1);
 
 //straighten
   move_rel(ELE,0,50,20);
   move_rel(FLP,0,50,50);
-  move_rel(PIT,35,50,50);
+  move_rel(PIT,10,50,80);
 
   if(mydelay(2000)) return(1);
 
 //random movearound
   if(docheck()) return(1);
-  if(move_rel(YAW,50,55,50)) return 1;
-  if(move_rel(ROLL,50,40,100)) return 1;
+  if(move_rel(YAW,50,70,50)) return 1;
+  if(move_rel(ROLL,50,30,100)) return 1;
   if(move_rel(FLP,50,0,50)) return 1;
   
   if(mydelay(2000)) return(1);
 
   if(docheck()) return(1);
-  if(move_rel(YAW,55,45,50)) return 1;
-  if(move_rel(ROLL,40,60,80)) return 1;
+  if(move_rel(YAW,70,45,50)) return 1;
+  if(move_rel(ROLL,30,60,80)) return 1;
   if(move_rel(FLP,0,100,50)) return 1;
   
   
 //landing
   move_rel(ELE,50,100,20);
-  move_rel(PIT,50,45,50);
+  move_rel(PIT,50,70,50);
   if(mydelay(500)) return 1;
   if(arm(REVERSE)) return(1);
   if(mydelay(1000)) return 1;
   if(wheels(OPEN)) return(1);
   if(mydelay(3000)) return 1;
-  move_rel(PIT,45,50,50);
+  move_rel(PIT,70,50,50);
   if(mydelay(3000)) return 1;
   move_rel(ELE,100,50,20);
   motor(0);
   led(0);
-  if(mydelay(5000)) return 1;
+  if(mydelay(1000)) return 1;
 // Alll this needs to finish by 20s
 
   for(int i=0;i<3;i++)
   {
     led(100);
-    if(move_rel(ELE,50,0,100)) return 1;
+    if(move_rel(ELE,50,0,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,50,0,100)) return 1;
+    if(move_rel(FLP,50,0,20)) return 1;
     if(mydelay(1000)) return 1;
   //  if(move_rel(PIT,50,40,50)) return 1;
   
-    if(move_rel(ELE,0,100,100)) return 1;
+    if(move_rel(ELE,0,100,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,0,100,100)) return 1;
+    if(move_rel(FLP,0,100,20)) return 1;
     if(mydelay(1000)) return 1;
   
   // 
-    if(move_rel(ELE,100,50,100)) return 1;
+    if(move_rel(ELE,100,50,20)) return 1;
     if(mydelay(1000)) return 1;
-    if(move_rel(FLP,0,100,100)) return 1;
+    if(move_rel(FLP,0,100,20)) return 1;
     led(0);
     if(mydelay(1000)) return 1;
   }
 
-    if(mydelay(5000)) return 1;
+    if(mydelay(1000)) return 1;
     Serial.println('finished screensaver');
     Serial.println('quit movie');
     
@@ -1101,7 +1101,15 @@ timeline[i]=250+EXTRA_TIME;
 
 
 //random roll
-  timeline[i]=246+EXTRA_TIME;
+  timeline[i]=252+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=50;
+  tl_args2[i]=25;
+  tl_args3[i]=100;
+  i++;     
+
+//random roll
+  timeline[i]=255+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=25;
   tl_args2[i]=45;

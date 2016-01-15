@@ -122,27 +122,43 @@ global mov
 mov = None
 def slave_movie1_callback():
     print 'movie1 slave'
+    command = "/usr/bin/omxplayer -o hdmi "
+    global debug
+    if debug is True:
+        command = command + " --win \"100 100 300 300\"  "
     slave_movie = '/home/pi/hinon_predator/5.mp4'
     global mov
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
+    mov = pexpect.spawn(command + slave_movie)
 
 def slave_movie2_callback():
     print 'movie2 slave'
     slave_movie = '/home/pi/hinon_predator/6.mp4'
     global mov
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi  " + slave_movie)
+    command = "/usr/bin/omxplayer -o hdmi "
+    global debug
+    if debug is True:
+        command = command + " --win \"100 100 300 300\"  "
+    mov = pexpect.spawn(command + slave_movie)
 
 def slave_movie3_callback():
     print 'movie3 slave'
     slave_movie = '/home/pi/hinon_predator/7.mp4'
-    global mov 
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
+    command = "/usr/bin/omxplayer -o hdmi "
+    global debug
+    if debug is True:
+        command = command + " --win \"100 100 300 300\"  "
+    global mov
+    mov = pexpect.spawn(command + slave_movie)
 
 def slave_movie4_callback():
     print 'movie4 slave'
     slave_movie = '/home/pi/hinon_predator/8.mp4'
     global mov 
-    mov = pexpect.spawn("/usr/bin/omxplayer -o hdmi " + slave_movie)
+    command = "/usr/bin/omxplayer -o hdmi "
+    global debug
+    if debug is True:
+        command = command + " --win \"100 100 300 300\"  "
+    mov = pexpect.spawn(command + slave_movie)
 
 def slave_pause_callback():
     print 'slave attempting pause'
@@ -241,9 +257,9 @@ def masterloop():
 	read_string = serialread(serialport)
 	print('read string:'+str(read_string))
         command = "/usr/bin/omxplayer -o hdmi "
-        debug = True
+        global debug
         if debug is True:
-            command = command + " --win \"100 100 300 300\"  " 
+            command = command + " --win \"100 100 400 400\"  " 
 	if read_string is not None:
 	    if 'start' in read_string:
                 print('yay got start')
@@ -326,6 +342,8 @@ pin_stop = 9  #pin 16
 logging.basicConfig(filename='movie.log',level=logging.CRITICAL)
 
 #a= pexpect.spawn("sudo /usr/bin/omxplayer -o hdmi /home1.mp4")
+global debug
+debug = False
 
 if __name__ == "__main__":
     print('starting raspi stuff')
@@ -334,6 +352,9 @@ if __name__ == "__main__":
 #    a.send('p')
 #    time.sleep(5)		   
 #    a.send('p')
+    global debug
+    if len(sys.argv) > 1:
+        debug = True
     logging.info('starting raspi stuff')
     mac = get_mac()
     if mac == 202481586470451: 

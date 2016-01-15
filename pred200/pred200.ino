@@ -1101,7 +1101,15 @@ timeline[i]=250+EXTRA_TIME;
 
 
 //random roll
-  timeline[i]=246+EXTRA_TIME;
+  timeline[i]=252+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=50;
+  tl_args2[i]=25;
+  tl_args3[i]=100;
+  i++;     
+
+//random roll
+  timeline[i]=255+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=25;
   tl_args2[i]=45;
