@@ -530,7 +530,7 @@ int movie1()
 
   CURRENT_ACTIVITY = MOVIE;
   RETURN_TO = WAITING;
-  const uint8_t movielength = 95;  //number of actiofns in movie  warning if this isn't high enough, you are writing into random memory 
+  const uint8_t movielength = 110;  //number of actiofns in movie  warning if this isn't high enough, you are writing into random memory 
   int timeline[movielength];
   uint8_t tl_servos[movielength] ;
   uint8_t tl_args1[movielength] ;
@@ -864,8 +864,8 @@ timeline[i]=120+20+EXTRA_TIME;
   timeline[i]=120+41+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=20;
-  tl_args3[i]=100;
+  tl_args2[i]=10;
+  tl_args3[i]=120 ;
   i++;     
 
 
@@ -928,6 +928,13 @@ timeline[i]=180+9+EXTRA_TIME;
   tl_args3[i]=30;
   i++;     
 
+
+  timeline[i]=205+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=10;
+  tl_args2[i]=50;
+  tl_args3[i]=100;
+  i++;     
 
 
   //camera on target 14
@@ -1068,6 +1075,11 @@ timeline[i]=250+EXTRA_TIME;
   tl_args3[i]=80;
   i++;     
   
+  timeline[i]=280+EXTRA_TIME;
+  tl_servos[i]=ARM;
+  tl_args1[i]=FORWARD;
+  i++;     
+
 //LANDING
 
   timeline[i]=295+EXTRA_TIME;
@@ -1076,7 +1088,7 @@ timeline[i]=250+EXTRA_TIME;
   tl_args1[i]=OPEN;
   i++;     
 
-  timeline[i]=298+EXTRA_TIME;
+  timeline[i]=296+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=REVERSE;
   i++;     
@@ -1091,22 +1103,24 @@ timeline[i]=250+EXTRA_TIME;
   tl_servos[i]=HOOD;
   tl_args1[i]=100;
   tl_args2[i]=0;
-  tl_args3[i]=20;
+  tl_args3[i]=30;
   i++;     
     
 
-  timeline[i]=340+EXTRA_TIME;
+
+  timeline[i]=341+EXTRA_TIME;
+  tl_servos[i]=ARM;
+  tl_args1[i]=CLOSED;
+  i++;     
+
+
+  timeline[i]=345+EXTRA_TIME;
   tl_servos[i]=HOOD;
   tl_args1[i]=0;
   tl_args2[i]=100;
   tl_args3[i]=20;
   i++;     
    
-
-  timeline[i]=341+EXTRA_TIME;
-  tl_servos[i]=ARM;
-  tl_args1[i]=CLOSED;
-  i++;     
 
 
 //Serial.println("movie timeline");
@@ -1133,16 +1147,17 @@ timeline[i]=250+EXTRA_TIME;
 
   int max_index = sizeof(timeline)/sizeof(timeline[0]);
     Serial.print("movie time, max index ");Serial.println(max_index);
-  while(index<max_index)
+  while(index<i)
   {
       if(docheck())return(1);
 
     t_millis=millis();
     t_seconds =(int)( t_millis/1000);
     int dt = (int)t_seconds-(int)start_seconds;
-    Serial.print("curtime:"); Serial.print(dt);
-    Serial.print(" nexttime:"); Serial.print((int)timeline[index]-(int)PREDELAY);
-    Serial.print(" planned :"); Serial.println((int)timeline[index]);
+    Serial.print("cur:"); Serial.print(dt);
+ //   Serial.print(" nexttime:"); Serial.print((int)timeline[index]-(int)PREDELAY);
+    Serial.print(" planned :"); Serial.print((int)timeline[index]);
+    Serial.print(" index :"); Serial.println((int)index);
  
     if ((int)dt>=(int)((int)timeline[index]-(int)PREDELAY))
     {

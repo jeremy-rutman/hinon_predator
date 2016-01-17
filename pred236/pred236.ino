@@ -530,7 +530,7 @@ int movie1()
 
   CURRENT_ACTIVITY = MOVIE;
   RETURN_TO = WAITING;
-  const uint8_t movielength = 95;  //number of actiofns in movie  warning if this isn't high enough, you are writing into random memory 
+  const uint8_t movielength = 97;  //number of actiofns in movie  warning if this isn't high enough, you are writing into random memory 
   int timeline[movielength];
   uint8_t tl_servos[movielength] ;
   uint8_t tl_args1[movielength] ;
@@ -633,7 +633,7 @@ timeline[i]=42+EXTRA_TIME;
   i++;     
   timeline[i]=44+EXTRA_TIME;
   tl_servos[i]=ELE;
-  tl_args1[i]=0;
+  tl_args1[i]=20;
   tl_args2[i]=50;
   tl_args3[i]=50;
   i++;     
@@ -642,6 +642,7 @@ timeline[i]=42+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=CLOSED;
   i++;   
+
 
 //random roll
   timeline[i]=50+EXTRA_TIME;
@@ -818,7 +819,7 @@ timeline[i]=60+7+EXTRA_TIME;
   tl_args3[i]=100;
   i++;     
 
-// slight descent over clouds  
+// slight descent over clouds- SAR
   timeline[i]=120+10+EXTRA_TIME;
   tl_servos[i]=PIT;
   tl_args1[i]=50;
@@ -864,8 +865,8 @@ timeline[i]=120+20+EXTRA_TIME;
   timeline[i]=120+41+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=20;
-  tl_args3[i]=100;
+  tl_args2[i]=10;
+  tl_args3[i]=120 ;
   i++;     
 
 
@@ -929,6 +930,20 @@ timeline[i]=180+9+EXTRA_TIME;
   i++;     
 
 
+  timeline[i]=205+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=10;
+  tl_args2[i]=50;
+  tl_args3[i]=100;
+  i++;     
+
+//left turn   - end at 220
+  timeline[i]=210+EXTRA_TIME;
+  tl_servos[i]=AIL;
+  tl_args1[i]=20;
+  tl_args2[i]=50;
+  tl_args3[i]=40;
+  i++;
 
   //camera on target 14
   timeline[i]=180+50+EXTRA_TIME;
@@ -980,21 +995,6 @@ timeline[i]=180+9+EXTRA_TIME;
   tl_args3[i]=20;
  i++;     
 
-    timeline[i]=240+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=50;
-  tl_args2[i]=45;
-  tl_args3[i]=80;
-  i++;     
-    timeline[i]=241+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=45;
-  tl_args2[i]=50;
-  tl_args3[i]=80;
-  i++;     
-
-
-
   
 //LEFT TURN HARD
  timeline[i]=245+EXTRA_TIME;
@@ -1003,16 +1003,18 @@ timeline[i]=180+9+EXTRA_TIME;
   tl_args2[i]=0;
   tl_args3[i]=50;
   i++;     
-  timeline[i]=246+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=50;
-  tl_args2[i]=25;
-  tl_args3[i]=80;
-  i++;     
+
   timeline[i]=247+EXTRA_TIME;
   tl_servos[i]=YAW;
   tl_args1[i]=50;
   tl_args2[i]=45;
+  tl_args3[i]=80;
+  i++;     
+
+    timeline[i]=248+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=50;
+  tl_args2[i]=50;
   tl_args3[i]=80;
   i++;     
 
@@ -1031,43 +1033,48 @@ timeline[i]=250+EXTRA_TIME;
  i++;     
 
 
-//random roll
+
+//hard roll
   timeline[i]=252+EXTRA_TIME;
   tl_servos[i]=ROLL;
   tl_args1[i]=50;
-  tl_args2[i]=25;
-  tl_args3[i]=100;
+  tl_args2[i]=0;
+  tl_args3[i]=120;
   i++;     
 
-//random roll
-  timeline[i]=255+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=25;
-  tl_args2[i]=45;
-  tl_args3[i]=100;
+
+ 
+ 
+//rise
+  timeline[i]=254+EXTRA_TIME;
+  tl_servos[i]=ARM;
+  tl_args1[i]=FORWARD;
   i++;     
 
   
   //STRAIGHTEN
- timeline[i]=260+EXTRA_TIME;
-  tl_servos[i]=FLP;
-  tl_args1[i]=0;
-  tl_args2[i]=50;
-  tl_args3[i]=50;
-  i++;     
-  timeline[i]=261+EXTRA_TIME;
-  tl_servos[i]=ROLL;
-  tl_args1[i]=45;
-  tl_args2[i]=50;
-  tl_args3[i]=80;
-  i++;       
-  timeline[i]=262+EXTRA_TIME;
+  timeline[i]=258+EXTRA_TIME;
   tl_servos[i]=YAW;
   tl_args1[i]=55;
   tl_args2[i]=50;
   tl_args3[i]=80;
   i++;     
   
+ timeline[i]=260+EXTRA_TIME;
+  tl_servos[i]=FLP;
+  tl_args1[i]=0;
+  tl_args2[i]=50;
+  tl_args3[i]=50;
+  i++;     
+
+  timeline[i]=265+EXTRA_TIME;
+  tl_servos[i]=ROLL;
+  tl_args1[i]=0;
+  tl_args2[i]=50;
+  tl_args3[i]=120;
+  i++;       
+
+
 //LANDING
 
   timeline[i]=295+EXTRA_TIME;
@@ -1076,7 +1083,7 @@ timeline[i]=250+EXTRA_TIME;
   tl_args1[i]=OPEN;
   i++;     
 
-  timeline[i]=298+EXTRA_TIME;
+  timeline[i]=296+EXTRA_TIME;
   tl_servos[i]=ARM;
   tl_args1[i]=REVERSE;
   i++;     
@@ -1091,22 +1098,24 @@ timeline[i]=250+EXTRA_TIME;
   tl_servos[i]=HOOD;
   tl_args1[i]=100;
   tl_args2[i]=0;
-  tl_args3[i]=20;
+  tl_args3[i]=30;
   i++;     
     
 
-  timeline[i]=340+EXTRA_TIME;
+
+  timeline[i]=341+EXTRA_TIME;
+  tl_servos[i]=ARM;
+  tl_args1[i]=CLOSED;
+  i++;     
+
+
+  timeline[i]=345+EXTRA_TIME;
   tl_servos[i]=HOOD;
   tl_args1[i]=0;
   tl_args2[i]=100;
   tl_args3[i]=20;
   i++;     
    
-
-  timeline[i]=341+EXTRA_TIME;
-  tl_servos[i]=ARM;
-  tl_args1[i]=CLOSED;
-  i++;     
 
 
 //Serial.println("movie timeline");
@@ -1133,16 +1142,17 @@ timeline[i]=250+EXTRA_TIME;
 
   int max_index = sizeof(timeline)/sizeof(timeline[0]);
     Serial.print("movie time, max index ");Serial.println(max_index);
-  while(index<max_index)
+  while(index<i)
   {
       if(docheck())return(1);
 
     t_millis=millis();
     t_seconds =(int)( t_millis/1000);
     int dt = (int)t_seconds-(int)start_seconds;
-    Serial.print("curtime:"); Serial.print(dt);
-    Serial.print(" nexttime:"); Serial.print((int)timeline[index]-(int)PREDELAY);
-    Serial.print(" planned :"); Serial.println((int)timeline[index]);
+    Serial.print("cur:"); Serial.print(dt);
+ //   Serial.print(" nexttime:"); Serial.print((int)timeline[index]-(int)PREDELAY);
+    Serial.print(" planned :"); Serial.print((int)timeline[index]);
+    Serial.print(" index :"); Serial.println((int)index);
  
     if ((int)dt>=(int)((int)timeline[index]-(int)PREDELAY))
     {
